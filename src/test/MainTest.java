@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import main.Client;
+import main.FichierAide;
 
 @RunWith(MockitoJUnitRunner.class)
 class MainTest {
@@ -22,6 +24,11 @@ class MainTest {
 	@Test
 	void testClient() {
 		assertEquals(true, client.Equals(client));
+	}
+
+	@Test
+	void testFichier() {
+		assertEquals(true, FichierAide.fichierConforme("./fichierConforme.txt"));
 	}
 
 }
