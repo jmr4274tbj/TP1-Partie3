@@ -112,13 +112,21 @@ public class Main {
 		for (Client client : listeClients) {
 			for (Commandes commande : listeCommandes) {
 				if (commande.Contains(client) && commande.getFacture() != 0) {
-					gestionFichier.ecrire(client.getNom() + ": " + nbFormat.format(commande.getFacture()) + "$\n",
+					gestionFichier.ecrire(client.getNom() + ": " + nbFormat.format(commande.getFacture() + calculerTaxes(commande.getFacture())) + "$\n",
 							"Erreur de l'écriture dans le fichier");
-					System.out.println(client.getNom() + ": " + nbFormat.format(commande.getFacture()) + "$");
+					System.out.println(client.getNom() + ": " + nbFormat.format(commande.getFacture() + calculerTaxes(commande.getFacture())) + "$");
 					break;
 				}
 			}
 		}
+	}
+	
+	public static double calculerTaxes(double montant) {
+		double cout;
+		double TPS = 0.05;
+		double TVQ = 0.10;
+		cout = (montant * TPS) + (montant * TVQ);
+		return cout;
 	}
 	
 }
