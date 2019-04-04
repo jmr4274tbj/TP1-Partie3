@@ -1,13 +1,62 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import main.Client;
+import main.GestionFichier;
+import main.FichierAide;
+import main.Main;
 
+@RunWith(MockitoJUnitRunner.class)
 class MainTest {
 
+	@Mock
+	Client client = new Client("Bernard");
+
 	@Test
-	void testFile() {
-		assertEquals(true, true);
+	void testClientNom() {
+		assertEquals("Bernard", client.getNom());
+	}
+
+	@Test
+	void testClient() {
+		assertEquals(true, client.Equals(client));
+	}
+
+	@Test
+	void testFichier() {
+		assertEquals(true, FichierAide.fichierConforme("./fichierConforme.txt"));
+	}
+
+	@Test
+	void testFichierExistant() {
+		boolean erreur = false;
+		erreur = new GestionFichier().definirLecteur("fichierInexistant.txt", "Ce fichier n'existe pas.");
+		assertEquals(false, erreur);
+	}
+	
+	@Test
+	void testClientsVide() {
+		assertEquals(true, FichierAide.clientsVide("./fichierAucunClients.txt"));
+	}
+	
+	@Test
+	void testPlatsVide() {
+		assertEquals(true, FichierAide.PlatsVide("./fichierAucunPlats.txt"));
+	}
+	
+	@Test
+	void testCommandesVide() {
+		assertEquals(true, FichierAide.CommandesVide("./fichierAucuneCommandes.txt"));
+	}
+	
+	@Test
+	void testTaxes() {
+		assertEquals(1.5, Main.calculerTaxes(10));
 	}
 }
