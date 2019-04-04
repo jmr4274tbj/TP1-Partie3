@@ -38,4 +38,9 @@ class MainTest {
 		assertEquals(false, erreur);
 	}
 	
+	@Test
+	void testClientsVide() {
+		assertEquals(true, FichierAide.clientsVide("./fichierAucunClients.txt"));
+	}
+	
 }
