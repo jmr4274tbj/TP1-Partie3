@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import main.Client;
 import main.GestionFichier;
 import main.FichierAide;
+import main.Main;
 
 @RunWith(MockitoJUnitRunner.class)
 class MainTest {
@@ -53,4 +55,8 @@ class MainTest {
 		assertEquals(true, FichierAide.CommandesVide("./fichierAucuneCommandes.txt"));
 	}
 	
+	@Test
+	void testTaxes() {
+		assertEquals(1.5, Main.calculerTaxes(10));
+	}
 }
