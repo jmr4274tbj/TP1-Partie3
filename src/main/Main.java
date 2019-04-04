@@ -57,7 +57,7 @@ public class Main {
 
 			System.out.println("");
 		} catch (Exception e) {
-			gestionFichier.definirWriter("facture", "Erreur de lecture ");
+			gestionFichier.definirWriter("facture.txt", "Erreur de lecture ");
 
 			if (!gestionFichier.ecrire("Les entrées du fichier ne sont pas conformes!",
 					"Erreur d'écriture dans le fichier de sortie")) {
@@ -70,7 +70,7 @@ public class Main {
 	}
 	
 	private static void ecrireFactures() {
-		gestionFichier.definirWriter("facture", "Erreur de création du fichier de sortie");
+		gestionFichier.definirWriter("facture.txt", "Erreur de création du fichier de sortie");
 		System.out.println("Bienvenue chez Barette!\r\n" + "Factures:\n");
 		gestionFichier.ecrireLigne("Erreurs et commandes incorrectes:", "Erreur dans l'écriture du de sortie");		
 		gestionFichier.ecrireLigne("\nBienvenue chez Barette!\r", "Erreur dans l'écriture du sortie");
