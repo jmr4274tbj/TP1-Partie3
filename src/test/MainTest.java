@@ -48,4 +48,9 @@ class MainTest {
 		assertEquals(true, FichierAide.PlatsVide("./fichierAucunPlats.txt"));
 	}
 	
+	@Test
+	void testCommandesVide() {
+		assertEquals(true, FichierAide.CommandesVide("./fichierAucuneCommandes.txt"));
+	}
+	
 }
