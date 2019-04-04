@@ -1,13 +1,23 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import main.Client;
 
+@RunWith(MockitoJUnitRunner.class)
 class MainTest {
 
+	@Mock
+	Client client = new Client("Bernard");
+
 	@Test
-	void testFile() {
-		assertEquals(true, true);
+	void testClientNom() {
+		assertEquals("Bernard", client.getNom());
 	}
+
 }
