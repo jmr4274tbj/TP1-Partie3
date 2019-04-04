@@ -1,0 +1,12 @@
+Clients :
+Plats :
+Poutine 7.98
+Frites 2.25
+Riz 1.55
+Poulet 5.54
+Boeuf 7.89
+Commandes :
+Roger Frites 7
+Bob Poutine 3
+Alain Riz 4 
+Fin
