@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
 import main.Client;
+import main.GestionFichier;
 import main.FichierAide;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,4 +31,11 @@ class MainTest {
 		assertEquals(true, FichierAide.fichierConforme("./fichierConforme.txt"));
 	}
 
+	@Test
+	void testFichierExistant() {
+		boolean erreur = false;
+		erreur = new GestionFichier().definirLecteur("fichierInexistant.txt", "Ce fichier n'existe pas.");
+		assertEquals(false, erreur);
+	}
+	
 }
