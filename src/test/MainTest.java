@@ -43,4 +43,9 @@ class MainTest {
 		assertEquals(true, FichierAide.clientsVide("./fichierAucunClients.txt"));
 	}
 	
+	@Test
+	void testPlatsVide() {
+		assertEquals(true, FichierAide.PlatsVide("./fichierAucunPlats.txt"));
+	}
+	
 }
