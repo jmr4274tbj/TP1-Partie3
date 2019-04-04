@@ -1,0 +1,13 @@
+Clients :
+Roger
+Céline
+Steve
+Plats :
+Poutine 7.42
+Frites 2.99
+Repas_Poulet 12.25
+Commandes :
+Roger Poutine 2
+Céline Frites 7
+Céline Repas_Poulet 4
+Fin 
