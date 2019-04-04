@@ -1,0 +1,11 @@
+Clients :
+Roger
+Bernard
+Bob
+Alain
+Plats :
+Commandes :
+Roger Frites 7
+Bob Poutine 3
+Alain Riz 4 
+Fin

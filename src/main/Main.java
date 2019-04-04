@@ -12,6 +12,8 @@ package main;
 * Programmeurs	: Jonathan Martel-Raiche et Rayane Taleb
 */
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class Main {
@@ -21,8 +23,25 @@ public class Main {
 	private static ArrayList<Client> listeClients = new ArrayList<Client>();
 	private static ArrayList<Plat> listePlats = new ArrayList<Plat>();
 	private static ArrayList<Commandes> listeCommandes = new ArrayList<Commandes>();
+	private static ArrayList<String> listeErreurs = new ArrayList<String>();
+	private static NumberFormat nbFormat = new DecimalFormat("#0.00");
+	private static boolean formatOK = false;
 
 	public static void main(String[] args) {
+		
+		if(!FichierAide.fichierConforme(nomFicCommandes)) {
+			listeErreurs.add("Erreur: Le format du fichier est incorrect.");
+			formatOK = true;
+		}
+		if(FichierAide.clientsVide(nomFicCommandes)) {
+			listeErreurs.add("Erreur: Le fichier ne contient aucun clients.");
+		}
+		if(FichierAide.PlatsVide(nomFicCommandes)) {
+			listeErreurs.add("Erreur: Le fichier ne contient aucun plats.");
+		}
+		if(FichierAide.CommandesVide(nomFicCommandes)) {
+			listeErreurs.add("Erreur: Le fichier ne contient aucune commandes.");
+		}
 		
 		boolean lecteur = gestionFichier.definirLecteur(nomFicCommandes, "Erreur de l'initialisation du lecteur de fichier");
 
@@ -57,7 +76,7 @@ public class Main {
 
 			System.out.println("");
 		} catch (Exception e) {
-			gestionFichier.definirWriter("facture.txt", "Erreur de lecture ");
+			gestionFichier.definirWriter(FichierAide.getNomFacture(), "Erreur de lecture ");
 
 			if (!gestionFichier.ecrire("Les entrées du fichier ne sont pas conformes!",
 					"Erreur d'écriture dans le fichier de sortie")) {
@@ -69,24 +88,45 @@ public class Main {
 		gestionFichier.fermerTout("Erreur fermeture de la gestion de fichier");
 	}
 	
+	public static void ecrireErreurs(GestionFichier gestionFichier) {
+		if(formatOK) {
+			gestionFichier.ecrireLigne("Erreur: Format du fichier incorrect", "Erreur de l'écriture dans le fichier");
+			gestionFichier.fermerTout("Erreur fermeture de la gestion de fichier");
+			System.exit(0);
+		}else {
+			for(String erreur : listeErreurs) {
+				gestionFichier.ecrireLigne(erreur, "Erreur de l'écriture dans le fichier");
+				System.out.println(erreur);
+			}	
+		}
+	}
+	
 	private static void ecrireFactures() {
-		gestionFichier.definirWriter("facture.txt", "Erreur de création du fichier de sortie");
+		gestionFichier.definirWriter(FichierAide.getNomFacture(), "Erreur de création du fichier de sortie");
 		System.out.println("Bienvenue chez Barette!\r\n" + "Factures:\n");
-		gestionFichier.ecrireLigne("Erreurs et commandes incorrectes:", "Erreur dans l'écriture du de sortie");		
+		gestionFichier.ecrireLigne("Erreurs et commandes incorrectes:", "Erreur dans l'écriture du de sortie");	
+		ecrireErreurs(gestionFichier);	
 		gestionFichier.ecrireLigne("\nBienvenue chez Barette!\r", "Erreur dans l'écriture du sortie");
 		gestionFichier.ecrireLigne("Facture:", "Erreur dans l'écriture du fichier de sortie");
 		
 		for (Client client : listeClients) {
 			for (Commandes commande : listeCommandes) {
 				if (commande.Contains(client) && commande.getFacture() != 0) {
-					gestionFichier.ecrire(client.getNom() + ": " + commande.getFacture() + "$\n",
+					gestionFichier.ecrire(client.getNom() + ": " + nbFormat.format(commande.getFacture() + calculerTaxes(commande.getFacture())) + "$\n",
 							"Erreur de l'écriture dans le fichier");
-					System.out.println(client.getNom() + ": " + commande.getFacture() + "$");
+					System.out.println(client.getNom() + ": " + nbFormat.format(commande.getFacture() + calculerTaxes(commande.getFacture())) + "$");
 					break;
 				}
 			}
 		}
 	}
 	
+	public static double calculerTaxes(double montant) {
+		double cout;
+		double TPS = 0.05;
+		double TVQ = 0.10;
+		cout = (montant * TPS) + (montant * TVQ);
+		return cout;
+	}
 	
 }
